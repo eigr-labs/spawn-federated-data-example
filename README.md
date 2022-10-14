@@ -18,6 +18,7 @@ First up the Elixir application:
 ```shell
 make run
 ``
+
 Second execute call for sending Task to Coordinator Actor:
 
 ```elixir
