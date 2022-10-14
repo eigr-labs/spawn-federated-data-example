@@ -9,8 +9,7 @@ defmodule SpawnFederatedExample.Federated.Actors.TaskCoordinator do
   """
   use SpawnSdk.Actor,
     name: "task-coordinator",
-    state_type: Federated.Domain.Coordinator.State,
-    deactivate_timeout: 31_536_000_000
+    state_type: Federated.Domain.Coordinator.State
 
   require Logger
 
