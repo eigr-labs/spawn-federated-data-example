@@ -3,10 +3,12 @@
 Certain use cases require more complex and careful modeling of Actors.
 Here we exemplify the splitting and data aggregation scenario using Actors.
 
-use cases:
+Targets:
 
 Data Processing
+
 Federated Machine Learning
+
 Complex integration scenarios
 
 ## Run
