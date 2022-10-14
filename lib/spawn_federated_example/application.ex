@@ -1,19 +1,26 @@
 defmodule SpawnFederatedExample.Application do
-  # See https://hexdocs.pm/elixir/Application.html
-  # for more information on OTP Applications
   @moduledoc false
 
   use Application
 
+  alias SpawnFederatedExample.Federated.Actors.{
+    TaskCoordinator,
+    Worker
+  }
+
   @impl true
   def start(_type, _args) do
     children = [
-      # Starts a worker by calling: SpawnFederatedExample.Worker.start_link(arg)
-      # {SpawnFederatedExample.Worker, arg}
+      {
+        SpawnSdk.System.Supervisor,
+        system: "spawn-system",
+        actors: [
+          TaskCoordinator,
+          Worker
+        ]
+      }
     ]
 
-    # See https://hexdocs.pm/elixir/Supervisor.html
-    # for other strategies and supported options
     opts = [strategy: :one_for_one, name: SpawnFederatedExample.Supervisor]
     Supervisor.start_link(children, opts)
   end

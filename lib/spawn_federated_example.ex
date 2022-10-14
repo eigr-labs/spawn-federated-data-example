@@ -3,16 +3,18 @@ defmodule SpawnFederatedExample do
   Documentation for `SpawnFederatedExample`.
   """
 
-  @doc """
-  Hello world.
+  defmodule Client do
+    alias SpawnSdk
 
-  ## Examples
+    @coordinator_actor "task-coordinator"
 
-      iex> SpawnFederatedExample.hello()
-      :world
-
-  """
-  def hello do
-    :world
+    def push(task) do
+      SpawnSdk.invoke(
+        @coordinator_actor,
+        system: "spawn-system",
+        command: "push_task",
+        payload: task
+      )
+    end
   end
 end

@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package federated.domain.coordinator;
+
+import "federated.proto";
+
+message Worker {
+    string id = 1;
+    federated.domain.FederatedTask task = 2;
+}
+
+message WorkerGroup {
+    string id = 1;
+    repeated Worker workers = 2;
+}
+
+message State {
+    repeated WorkerGroup groups = 1;
+}

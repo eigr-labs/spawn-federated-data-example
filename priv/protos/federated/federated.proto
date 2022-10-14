@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package federated.domain;
+
+message Data {
+    repeated int32 numbers = 1;
+}
+
+message Result {
+    int32 data = 1;
+}
+
+message TaskRequest {
+    string id = 1;
+    Data data = 2;
+    int32 workers = 3;
+}
+
+message TaskResponse {
+    string id = 1;
+    Result result = 2;
+}
+
+enum Status {
+    UNKNOWN_STATUS = 0;
+    PENDING = 1;
+    DONE = 2;
+}
+
+message FederatedTask {
+    string id = 1;
+    string worker_id = 2;
+    Data data = 3;
+    Status status = 4;
+}
+
+message FederatedTaskResult {
+    string id = 1;
+    string worker_id = 2;
+    Result data = 3;
+    Status status = 4;
+}
