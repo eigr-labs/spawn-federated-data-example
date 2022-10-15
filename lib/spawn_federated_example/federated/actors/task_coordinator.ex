@@ -23,6 +23,8 @@ defmodule SpawnFederatedExample.Federated.Actors.TaskCoordinator do
   }
 
   alias Federated.Domain.Coordinator.{
+    GetTaskRequest,
+    GetTaskResponse,
     Summary,
     State,
     Worker,
@@ -30,6 +32,19 @@ defmodule SpawnFederatedExample.Federated.Actors.TaskCoordinator do
   }
 
   alias SpawnFederatedExample.Federated.Actors.Worker, as: ActorWorker
+
+  @doc """
+  Fetch Task Process Result from State
+  """
+  defact fetch(%GetTaskRequest{id: id}, %Context{state: %State{groups: groups} = state} = _ctx) do
+    _worker_group = %WorkerGroup{summary: summary} = Map.get(groups, id)
+
+    response = %GetTaskResponse{summary: summary}
+
+    %Value{}
+    |> Value.of(response, state)
+    |> Value.reply!()
+  end
 
   @doc """
   Divide the work to be done into several subtasks and
@@ -41,7 +56,7 @@ defmodule SpawnFederatedExample.Federated.Actors.TaskCoordinator do
              workers: sub_tasks_number,
              data: %Data{numbers: arr} = _data
            } = request,
-           %Context{state: state} = ctx
+           %Context{state: state} = _ctx
          ) do
     # Divide and conquer
     sub_list = split(arr, sub_tasks_number)
@@ -54,7 +69,7 @@ defmodule SpawnFederatedExample.Federated.Actors.TaskCoordinator do
       workers: workers,
       summary: %Summary{
         task_id: task_id,
-        tasks: length(workers),
+        sub_tasks: length(workers),
         response: %TaskResponse{id: task_id, result: %Result{}},
         status: :PENDING
       }
@@ -105,18 +120,18 @@ defmodule SpawnFederatedExample.Federated.Actors.TaskCoordinator do
 
   defp aggregate(
          %FederatedTaskResult{
-           id: task_id,
+           id: _task_id,
            correlation_id: correlation_id,
            worker_id: worker_id,
            status: status,
            data: %Result{} = result
-         } = worker_response,
-         %Context{state: %State{groups: groups} = state} = _ctx
+         } = _worker_response,
+         %Context{state: %State{groups: groups} = _state} = _ctx
        ) do
     worker_group =
       %WorkerGroup{
-        id: worker_group_task_id,
-        workers: workers,
+        id: _worker_group_task_id,
+        workers: _workers,
         summary: summary
       } = Map.get(groups, correlation_id)
 
@@ -132,7 +147,7 @@ defmodule SpawnFederatedExample.Federated.Actors.TaskCoordinator do
 
     pending_list =
       Enum.filter(new_workers_state, fn %Worker{task: %FederatedTask{status: status} = _task} =
-                                          worker ->
+                                          _worker ->
         status == :PENDING
       end)
 
@@ -150,7 +165,7 @@ defmodule SpawnFederatedExample.Federated.Actors.TaskCoordinator do
 
     updated_groups = Map.replace(groups, correlation_id, updated_worker_group)
 
-    new_state = %State{groups: updated_groups}
+    %State{groups: updated_groups}
   end
 
   defp get_summary_status(list) do
@@ -161,7 +176,7 @@ defmodule SpawnFederatedExample.Federated.Actors.TaskCoordinator do
     end
   end
 
-  defp update_response(correlation_id, summary, summary_status, result) do
+  defp update_response(_correlation_id, summary, summary_status, result) do
     case summary_status do
       :DONE ->
         res = %Result{

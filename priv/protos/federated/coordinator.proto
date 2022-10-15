@@ -6,7 +6,7 @@ import "federated.proto";
 
 message Summary {
     string task_id = 1;
-    int32 tasks = 2;
+    int32 sub_tasks = 2;
     TaskResponse response = 3; 
     federated.domain.Status status = 4;
 }
@@ -20,6 +20,14 @@ message WorkerGroup {
     string id = 1;
     repeated Worker workers = 2;
     Summary summary = 3;
+}
+
+message GetTaskRequest {
+    string id = 1;
+}
+
+message GetTaskResponse {
+    Summary summary = 2;
 }
 
 message State {

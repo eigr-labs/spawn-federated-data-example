@@ -19,6 +19,8 @@ First up the Elixir application:
 make run
 ```
 
+> **_NOTE:_** This example uses the MySQL database as persistent storage for its actors. And it is also expected that you have previously created a database called eigr-functions-db in the MySQL instance.
+
 Second execute call for sending Task to Coordinator Actor:
 
 ```elixir
@@ -63,4 +65,21 @@ This means that the Coordinator generated the subtasks, generated two workers wo
 
 ## Checking the results
 
-TODO
+Use fetch operation for get aggregated task result:
+
+```elixir
+iex(federated_01@127.0.0.1)7>SpawnFederatedExample.Client.fetch(task_id)
+{:ok,
+ %Federated.Domain.Coordinator.Summary{
+   task_id: "59cb2271-d88d-4a21-a240-d4a0b76f9020",
+   tasks: 2,
+   response: %Federated.Domain.TaskResponse{
+     id: "59cb2271-d88d-4a21-a240-d4a0b76f9020",
+     result: %Federated.Domain.Result{data: 210, __unknown_fields__: []},
+     __unknown_fields__: []
+   },
+   status: :DONE,
+   __unknown_fields__: []
+ }}
+iex(federated_01@127.0.0.1)8>
+```

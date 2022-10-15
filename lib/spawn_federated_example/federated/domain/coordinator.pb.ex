@@ -28,9 +28,9 @@ defmodule Federated.Domain.Coordinator.Summary do
           __unknown_fields__: [],
           default_value: nil,
           extendee: nil,
-          json_name: "tasks",
+          json_name: "subTasks",
           label: :LABEL_OPTIONAL,
-          name: "tasks",
+          name: "sub_tasks",
           number: 2,
           oneof_index: nil,
           options: nil,
@@ -77,7 +77,7 @@ defmodule Federated.Domain.Coordinator.Summary do
   end
 
   field :task_id, 1, type: :string, json_name: "taskId"
-  field :tasks, 2, type: :int32
+  field :sub_tasks, 2, type: :int32, json_name: "subTasks"
   field :response, 3, type: Federated.Domain.TaskResponse
   field :status, 4, type: Federated.Domain.Status, enum: true
 end
@@ -201,6 +201,82 @@ defmodule Federated.Domain.Coordinator.WorkerGroup do
   field :id, 1, type: :string
   field :workers, 2, repeated: true, type: Federated.Domain.Coordinator.Worker
   field :summary, 3, type: Federated.Domain.Coordinator.Summary
+end
+defmodule Federated.Domain.Coordinator.GetTaskRequest do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
+
+  def descriptor do
+    # credo:disable-for-next-line
+    %Google.Protobuf.DescriptorProto{
+      __unknown_fields__: [],
+      enum_type: [],
+      extension: [],
+      extension_range: [],
+      field: [
+        %Google.Protobuf.FieldDescriptorProto{
+          __unknown_fields__: [],
+          default_value: nil,
+          extendee: nil,
+          json_name: "id",
+          label: :LABEL_OPTIONAL,
+          name: "id",
+          number: 1,
+          oneof_index: nil,
+          options: nil,
+          proto3_optional: nil,
+          type: :TYPE_STRING,
+          type_name: nil
+        }
+      ],
+      name: "GetTaskRequest",
+      nested_type: [],
+      oneof_decl: [],
+      options: nil,
+      reserved_name: [],
+      reserved_range: []
+    }
+  end
+
+  field :id, 1, type: :string
+end
+defmodule Federated.Domain.Coordinator.GetTaskResponse do
+  @moduledoc false
+  use Protobuf, protoc_gen_elixir_version: "0.10.0", syntax: :proto3
+
+  def descriptor do
+    # credo:disable-for-next-line
+    %Google.Protobuf.DescriptorProto{
+      __unknown_fields__: [],
+      enum_type: [],
+      extension: [],
+      extension_range: [],
+      field: [
+        %Google.Protobuf.FieldDescriptorProto{
+          __unknown_fields__: [],
+          default_value: nil,
+          extendee: nil,
+          json_name: "summary",
+          label: :LABEL_OPTIONAL,
+          name: "summary",
+          number: 2,
+          oneof_index: nil,
+          options: nil,
+          proto3_optional: nil,
+          type: :TYPE_MESSAGE,
+          type_name: ".federated.domain.coordinator.Summary"
+        }
+      ],
+      name: "GetTaskResponse",
+      nested_type: [],
+      oneof_decl: [],
+      options: nil,
+      reserved_name: [],
+      reserved_range: []
+    }
+  end
+
+  field :summary, 2, type: Federated.Domain.Coordinator.Summary
 end
 defmodule Federated.Domain.Coordinator.State.GroupsEntry do
   @moduledoc false
