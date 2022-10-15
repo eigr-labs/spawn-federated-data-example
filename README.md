@@ -72,7 +72,7 @@ iex(federated_01@127.0.0.1)7>SpawnFederatedExample.Client.fetch(task_id)
 {:ok,
  %Federated.Domain.Coordinator.Summary{
    task_id: "59cb2271-d88d-4a21-a240-d4a0b76f9020",
-   tasks: 2,
+   sub_tasks: 2,
    response: %Federated.Domain.TaskResponse{
      id: "59cb2271-d88d-4a21-a240-d4a0b76f9020",
      result: %Federated.Domain.Result{data: 210, __unknown_fields__: []},
