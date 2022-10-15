@@ -5,8 +5,7 @@ defmodule SpawnFederatedExample.Federated.Actors.Worker do
   use SpawnSdk.Actor,
     abstract: true,
     persistent: false,
-    channel: "workers",
-    state_type: Google.Protobuf.Empty
+    channel: "workers"
 
   require Logger
 
@@ -17,8 +16,6 @@ defmodule SpawnFederatedExample.Federated.Actors.Worker do
     Result
   }
 
-  alias Google.Protobuf.Empty
-
   @coordinator_actor "task-coordinator"
 
   defact sum(
@@ -28,7 +25,7 @@ defmodule SpawnFederatedExample.Federated.Actors.Worker do
              worker_id: worker_id,
              data: %Data{numbers: list}
            } = request,
-           %Context{state: state} = ctx
+           %Context{} = ctx
          ) do
     Logger.info(
       "Worker #{inspect(worker_id)} Received FederatedTask Request to Sum. Request: [#{inspect(request)}] Context: [#{inspect(ctx)}]"
@@ -54,7 +51,6 @@ defmodule SpawnFederatedExample.Federated.Actors.Worker do
     )
 
     Value.of()
-    |> Value.state(Empty.new())
-    |> Value.noreply!()
+    |> Value.noreply!(force: true)
   end
 end
