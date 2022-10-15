@@ -23,7 +23,8 @@ defmodule SpawnFederatedExample.Federated.Actors.Worker do
              id: id,
              correlation_id: correlation_id,
              worker_id: worker_id,
-             data: %Data{numbers: list}
+             data: %Data{} = data,
+             task_strategy: task_strategy
            } = request,
            %Context{} = ctx
          ) do
@@ -31,13 +32,13 @@ defmodule SpawnFederatedExample.Federated.Actors.Worker do
       "Worker #{inspect(worker_id)} Received FederatedTask Request to Sum. Request: [#{inspect(request)}] Context: [#{inspect(ctx)}]"
     )
 
-    sum = Enum.sum(list)
+    value = calculate(data, task_strategy)
 
     result = %FederatedTaskResult{
       id: id,
       correlation_id: correlation_id,
       worker_id: worker_id,
-      data: %Result{data: sum},
+      data: %Result{data: value},
       status: :DONE
     }
 
@@ -52,5 +53,21 @@ defmodule SpawnFederatedExample.Federated.Actors.Worker do
 
     Value.of()
     |> Value.noreply!(force: true)
+  end
+
+  defp calculate(%Data{numbers: list} = _data, task_strategy) do
+    case task_strategy do
+      :SUM ->
+        Enum.sum(list)
+
+      :MIN ->
+        Enum.min(list)
+
+      :MAX ->
+        Enum.max(list)
+
+      :UNKNOWN_TASK_STRATEGY ->
+        Enum.sum(list)
+    end
   end
 end

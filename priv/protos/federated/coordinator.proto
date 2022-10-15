@@ -20,6 +20,7 @@ message WorkerGroup {
     string id = 1;
     repeated Worker workers = 2;
     Summary summary = 3;
+    federated.domain.AggregationStrategy aggregation_strategy = 4;
 }
 
 message GetTaskRequest {

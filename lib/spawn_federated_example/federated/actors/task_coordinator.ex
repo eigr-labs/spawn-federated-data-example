@@ -54,7 +54,8 @@ defmodule SpawnFederatedExample.Federated.Actors.TaskCoordinator do
            %TaskRequest{
              id: task_id,
              workers: sub_tasks_number,
-             data: %Data{numbers: arr} = _data
+             data: %Data{numbers: arr} = _data,
+             aggregation_strategy: aggregation_strategy
            } = request,
            %Context{state: state} = _ctx
          ) do
@@ -67,6 +68,7 @@ defmodule SpawnFederatedExample.Federated.Actors.TaskCoordinator do
     group = %WorkerGroup{
       id: task_id,
       workers: workers,
+      aggregation_strategy: aggregation_strategy,
       summary: %Summary{
         task_id: task_id,
         sub_tasks: length(workers),
@@ -215,6 +217,7 @@ defmodule SpawnFederatedExample.Federated.Actors.TaskCoordinator do
         id: Uniq.UUID.uuid4(),
         correlation_id: request.id,
         worker_id: worker_id,
+        task_strategy: request.task_strategy,
         data: %Data{numbers: task_list},
         status: :PENDING
       }

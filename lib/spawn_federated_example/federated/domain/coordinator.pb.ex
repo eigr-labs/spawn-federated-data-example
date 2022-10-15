@@ -187,6 +187,20 @@ defmodule Federated.Domain.Coordinator.WorkerGroup do
           proto3_optional: nil,
           type: :TYPE_MESSAGE,
           type_name: ".federated.domain.coordinator.Summary"
+        },
+        %Google.Protobuf.FieldDescriptorProto{
+          __unknown_fields__: [],
+          default_value: nil,
+          extendee: nil,
+          json_name: "aggregationStrategy",
+          label: :LABEL_OPTIONAL,
+          name: "aggregation_strategy",
+          number: 4,
+          oneof_index: nil,
+          options: nil,
+          proto3_optional: nil,
+          type: :TYPE_ENUM,
+          type_name: ".federated.domain.AggregationStrategy"
         }
       ],
       name: "WorkerGroup",
@@ -201,6 +215,11 @@ defmodule Federated.Domain.Coordinator.WorkerGroup do
   field :id, 1, type: :string
   field :workers, 2, repeated: true, type: Federated.Domain.Coordinator.Worker
   field :summary, 3, type: Federated.Domain.Coordinator.Summary
+
+  field :aggregation_strategy, 4,
+    type: Federated.Domain.AggregationStrategy,
+    json_name: "aggregationStrategy",
+    enum: true
 end
 defmodule Federated.Domain.Coordinator.GetTaskRequest do
   @moduledoc false

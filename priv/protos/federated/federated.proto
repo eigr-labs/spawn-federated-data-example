@@ -2,6 +2,18 @@ syntax = "proto3";
 
 package federated.domain;
 
+enum TaskStrategy {
+    UNKNOWN_TASK_STRATEGY = 0;
+    SUM = 1;
+    MIN = 2;
+    MAX = 3;
+}
+
+enum AggregationStrategy {
+    UNKNOWN_AGGREGATION_STRATEGY = 0;
+    SUM_TASKS = 1;
+}
+
 message Data {
     repeated int32 numbers = 1;
 }
@@ -14,6 +26,8 @@ message TaskRequest {
     string id = 1;
     Data data = 2;
     int32 workers = 3;
+    TaskStrategy task_strategy = 4;
+    AggregationStrategy aggregation_strategy = 5;
 }
 
 message TaskResponse {
@@ -33,6 +47,7 @@ message FederatedTask {
     string worker_id = 3;
     Data data = 4;
     Status status = 5;
+    TaskStrategy task_strategy = 6;
 }
 
 message FederatedTaskResult {
