@@ -9,12 +9,18 @@ defmodule SpawnFederatedExample do
     @coordinator_actor "task-coordinator"
 
     def push(task) do
-      SpawnSdk.invoke(
-        @coordinator_actor,
-        system: "spawn-system",
-        command: "push_task",
-        payload: task
-      )
+      case SpawnSdk.invoke(
+             @coordinator_actor,
+             system: "spawn-system",
+             command: "push_task",
+             payload: task
+           ) do
+        {:ok, %Federated.Domain.Coordinator.WorkerGroup{id: id}} ->
+          {:ok, id}
+
+        _ ->
+          :error
+      end
     end
   end
 end

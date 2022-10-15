@@ -4,6 +4,13 @@ package federated.domain.coordinator;
 
 import "federated.proto";
 
+message Summary {
+    string task_id = 1;
+    int32 tasks = 2;
+    TaskResponse response = 3; 
+    federated.domain.Status status = 4;
+}
+
 message Worker {
     string id = 1;
     federated.domain.FederatedTask task = 2;
@@ -12,8 +19,9 @@ message Worker {
 message WorkerGroup {
     string id = 1;
     repeated Worker workers = 2;
+    Summary summary = 3;
 }
 
 message State {
-    repeated WorkerGroup groups = 1;
+    map<string, WorkerGroup> groups = 1;
 }

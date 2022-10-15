@@ -29,14 +29,16 @@ enum Status {
 
 message FederatedTask {
     string id = 1;
-    string worker_id = 2;
-    Data data = 3;
-    Status status = 4;
+    string correlation_id = 2;
+    string worker_id = 3;
+    Data data = 4;
+    Status status = 5;
 }
 
 message FederatedTaskResult {
     string id = 1;
-    string worker_id = 2;
-    Result data = 3;
-    Status status = 4;
+    string correlation_id = 2;
+    string worker_id = 3;
+    Result data = 4;
+    Status status = 5;
 }

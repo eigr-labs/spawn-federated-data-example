@@ -264,10 +264,24 @@ defmodule Federated.Domain.FederatedTask do
           __unknown_fields__: [],
           default_value: nil,
           extendee: nil,
+          json_name: "correlationId",
+          label: :LABEL_OPTIONAL,
+          name: "correlation_id",
+          number: 2,
+          oneof_index: nil,
+          options: nil,
+          proto3_optional: nil,
+          type: :TYPE_STRING,
+          type_name: nil
+        },
+        %Google.Protobuf.FieldDescriptorProto{
+          __unknown_fields__: [],
+          default_value: nil,
+          extendee: nil,
           json_name: "workerId",
           label: :LABEL_OPTIONAL,
           name: "worker_id",
-          number: 2,
+          number: 3,
           oneof_index: nil,
           options: nil,
           proto3_optional: nil,
@@ -281,7 +295,7 @@ defmodule Federated.Domain.FederatedTask do
           json_name: "data",
           label: :LABEL_OPTIONAL,
           name: "data",
-          number: 3,
+          number: 4,
           oneof_index: nil,
           options: nil,
           proto3_optional: nil,
@@ -295,7 +309,7 @@ defmodule Federated.Domain.FederatedTask do
           json_name: "status",
           label: :LABEL_OPTIONAL,
           name: "status",
-          number: 4,
+          number: 5,
           oneof_index: nil,
           options: nil,
           proto3_optional: nil,
@@ -313,9 +327,10 @@ defmodule Federated.Domain.FederatedTask do
   end
 
   field :id, 1, type: :string
-  field :worker_id, 2, type: :string, json_name: "workerId"
-  field :data, 3, type: Federated.Domain.Data
-  field :status, 4, type: Federated.Domain.Status, enum: true
+  field :correlation_id, 2, type: :string, json_name: "correlationId"
+  field :worker_id, 3, type: :string, json_name: "workerId"
+  field :data, 4, type: Federated.Domain.Data
+  field :status, 5, type: Federated.Domain.Status, enum: true
 end
 defmodule Federated.Domain.FederatedTaskResult do
   @moduledoc false
@@ -347,10 +362,24 @@ defmodule Federated.Domain.FederatedTaskResult do
           __unknown_fields__: [],
           default_value: nil,
           extendee: nil,
+          json_name: "correlationId",
+          label: :LABEL_OPTIONAL,
+          name: "correlation_id",
+          number: 2,
+          oneof_index: nil,
+          options: nil,
+          proto3_optional: nil,
+          type: :TYPE_STRING,
+          type_name: nil
+        },
+        %Google.Protobuf.FieldDescriptorProto{
+          __unknown_fields__: [],
+          default_value: nil,
+          extendee: nil,
           json_name: "workerId",
           label: :LABEL_OPTIONAL,
           name: "worker_id",
-          number: 2,
+          number: 3,
           oneof_index: nil,
           options: nil,
           proto3_optional: nil,
@@ -364,7 +393,7 @@ defmodule Federated.Domain.FederatedTaskResult do
           json_name: "data",
           label: :LABEL_OPTIONAL,
           name: "data",
-          number: 3,
+          number: 4,
           oneof_index: nil,
           options: nil,
           proto3_optional: nil,
@@ -378,7 +407,7 @@ defmodule Federated.Domain.FederatedTaskResult do
           json_name: "status",
           label: :LABEL_OPTIONAL,
           name: "status",
-          number: 4,
+          number: 5,
           oneof_index: nil,
           options: nil,
           proto3_optional: nil,
@@ -396,7 +425,8 @@ defmodule Federated.Domain.FederatedTaskResult do
   end
 
   field :id, 1, type: :string
-  field :worker_id, 2, type: :string, json_name: "workerId"
-  field :data, 3, type: Federated.Domain.Result
-  field :status, 4, type: Federated.Domain.Status, enum: true
+  field :correlation_id, 2, type: :string, json_name: "correlationId"
+  field :worker_id, 3, type: :string, json_name: "workerId"
+  field :data, 4, type: Federated.Domain.Result
+  field :status, 5, type: Federated.Domain.Status, enum: true
 end

@@ -46,43 +46,8 @@ iex(federated_01@127.0.0.1)4> task = %Federated.Domain.TaskRequest{
 ```
 
 ```elixir
-iex(federated_01@127.0.0.1)6> SpawnFederatedExample.Client.push(task)
-
-{:ok,
- %Federated.Domain.Coordinator.WorkerGroup{
-   id: "15391a75-716d-4e2f-a9fa-3c9900d710b2",
-   workers: [
-     %Federated.Domain.Coordinator.Worker{
-       id: "worker-0",
-       task: %Federated.Domain.FederatedTask{
-         id: "331131c9-14f2-4a73-9d56-bc24c42f28f2",
-         worker_id: "worker-0",
-         data: %Federated.Domain.Data{
-           numbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-           __unknown_fields__: []
-         },
-         status: :PENDING,
-         __unknown_fields__: []
-       },
-       __unknown_fields__: []
-     },
-     %Federated.Domain.Coordinator.Worker{
-       id: "worker-1",
-       task: %Federated.Domain.FederatedTask{
-         id: "50bb96bb-886e-4656-b896-202dbaa2b279",
-         worker_id: "worker-1",
-         data: %Federated.Domain.Data{
-           numbers: [11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
-           __unknown_fields__: []
-         },
-         status: :PENDING,
-         __unknown_fields__: []
-       },
-       __unknown_fields__: []
-     }
-   ],
-   __unknown_fields__: []
- }}
+iex(federated_01@127.0.0.1)6> {:ok, task_id} = SpawnFederatedExample.Client.push(task)
+{:ok, "86255146-8561-404a-b958-423d7c159ed2"}
 ```
 
 In the logs you will see some messages like these:

@@ -22,7 +22,12 @@ defmodule SpawnFederatedExample.Federated.Actors.Worker do
   @coordinator_actor "task-coordinator"
 
   defact sum(
-           %FederatedTask{id: id, worker_id: worker_id, data: %Data{numbers: list}} = request,
+           %FederatedTask{
+             id: id,
+             correlation_id: correlation_id,
+             worker_id: worker_id,
+             data: %Data{numbers: list}
+           } = request,
            %Context{state: state} = ctx
          ) do
     Logger.info(
@@ -33,6 +38,7 @@ defmodule SpawnFederatedExample.Federated.Actors.Worker do
 
     result = %FederatedTaskResult{
       id: id,
+      correlation_id: correlation_id,
       worker_id: worker_id,
       data: %Result{data: sum},
       status: :DONE
