@@ -4,7 +4,8 @@ defmodule SpawnFederatedExample.Federated.Actors.TaskCoordinator do
   and sending it to the workers.
   It must also take care of the aggregation logic.
 
-  This logic is based on the Aggregator pattern
+  This logic is based on the Splitter and Aggregator pattern
+  https://www.enterpriseintegrationpatterns.com/patterns/messaging/Sequencer.html
   https://www.enterpriseintegrationpatterns.com/patterns/messaging/Aggregator.html
   """
   use SpawnSdk.Actor,
