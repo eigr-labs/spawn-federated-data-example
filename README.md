@@ -33,7 +33,7 @@ iex(federated_01@127.0.0.1)4> task = %Federated.Domain.TaskRequest{
 ...(federated_01@127.0.0.1)4>      id: Uniq.UUID.uuid4(),
 ...(federated_01@127.0.0.1)4>      workers: 2,
 ...(federated_01@127.0.0.1)4>      task_strategy: :SUM,
-...(federated_01@127.0.0.1)4>      aggregation_strategy: :SUM,
+...(federated_01@127.0.0.1)4>      aggregation_strategy: :SUM_TASKS,
 ...(federated_01@127.0.0.1)4>      data: %Federated.Domain.Data{numbers: list}
 ...(federated_01@127.0.0.1)4>    }
 
